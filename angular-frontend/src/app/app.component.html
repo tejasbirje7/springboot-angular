@@ -1,0 +1,54 @@
+<nav class="navbar justify-content-center navbar-expand-sm bg-info navbar-dark">
+  <h3 class="text-center font-weight-bolder"> {{title}} </h3>
+
+
+</nav>
+<!--<nav class="navbar navbar-expand navbar-dark bg-dark">-->
+<!--  <ul class="navbar-nav justify-content-center" *ngIf="!isLoggedIn">-->
+<!--    <li class="nav-item">-->
+<!--      <a href="/register" class="nav-link font-weight-bolder" routerLink="register">Register</a>-->
+<!--    </li>-->
+<!--    <li class="nav-item">-->
+<!--      <a href="/login" class="nav-link font-weight-bolder" routerLink="login">Login</a>-->
+<!--    </li>-->
+<!--  </ul>-->
+<!--</nav>-->
+
+
+<nav class="navbar navbar-expand navbar-dark bg-dark">
+  <ul class="navbar-nav ml-auto" *ngIf="!isLoggedIn">
+    <li class="nav-item">
+      <a href="/register" class="nav-link font-weight-bolder" routerLink="register">Register</a>
+    </li>
+    <li class="nav-item">
+      <a href="/login" class="nav-link font-weight-bolder" routerLink="login">Login</a>
+    </li>
+  </ul>
+  <ul class="navbar-nav ml-auto" *ngIf="isLoggedIn">
+    <li class="nav-item">
+      <a href="/employees" class="nav-link font-weight-bolder" routerLink="employees"> Employees </a>
+    </li>
+    <li class="nav-item">
+      <a href="/create-employee" class="nav-link font-weight-bolder" routerLink="create-employee"> Add Employee </a>
+    </li>
+    <li class="nav-item">
+      <a href="/profile" class="nav-link font-weight-bolder" routerLink="profile">{{ username }}</a>
+    </li>
+    <li class="nav-item">
+      <a href class="nav-link font-weight-bolder" (click)="logout()">Logout</a>
+    </li>
+  </ul>
+</nav>
+
+
+
+
+<br>
+<div class="container">
+  <router-outlet></router-outlet>
+</div>
+<footer class="footer">
+  <div class="container">
+    <h5> All Rights Reserved 2022 </h5>
+  </div>
+</footer>

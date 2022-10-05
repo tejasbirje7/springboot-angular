@@ -1,0 +1,33 @@
+<div class="col-md-12">
+  <div class="card card-container">
+
+    <h3> Add Employee </h3>
+    <br>
+    <form (ngSubmit) = "onSubmit()">
+
+        <div class="form-group">
+            <label> First Name</label>
+            <input type="text" class ="form-control" id = "firstName"
+                [(ngModel)] = "employee.firstName" name = "firstName">
+        </div>
+
+        <div class="form-group">
+            <label> Last Name</label>
+            <input type="text" class ="form-control" id = "lastName"
+                [(ngModel)] = "employee.lastName" name = "lastName">
+        </div>
+
+        <div class="form-group">
+            <label> Email Id</label>
+            <input type="text" class ="form-control" id = "email"
+                [(ngModel)] = "employee.email" name = "email">
+        </div>
+
+      <div class="form-group">
+        <p *ngIf="noAccess" class="text-danger"> You don't have access to add employee</p>
+        <button class="btn btn-primary btn-block">Submit</button>
+      </div>
+
+    </form>
+  </div>
+</div>
