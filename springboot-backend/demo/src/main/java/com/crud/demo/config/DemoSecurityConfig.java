@@ -1,5 +1,6 @@
 package com.crud.demo.config;
 
+import com.crud.demo.security.AccessDenied;
 import com.crud.demo.security.AuthEntryPointJwt;
 import com.crud.demo.security.AuthTokenFilter;
 import com.crud.demo.service.UserServiceImpl;
@@ -36,6 +37,9 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
+
+    @Autowired
+    private AccessDenied accessDeniedHandler;
 
     // add a reference to our security data source
     @Autowired
@@ -76,6 +80,7 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
                 .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
+                .exceptionHandling().accessDeniedHandler(accessDeniedHandler).and()
                 .authorizeRequests()
                 .antMatchers("/api/auth/**").permitAll()
                 .antMatchers("/api/test/**").permitAll()

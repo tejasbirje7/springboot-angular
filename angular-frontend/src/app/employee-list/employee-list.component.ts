@@ -40,7 +40,7 @@ export class EmployeeListComponent implements OnInit {
       this.getEmployees();
     },
       error => {
-        if (error.status === 403) {
+        if (error.status > 399 && error.status < 500) {
           this.noAccess = true;
         }
       });

@@ -31,7 +31,7 @@ export class UpdateEmployeeComponent implements OnInit {
       data => { this.goToEmployeeList(); },
       error => {
         console.log(error.status);
-        if ( error.status === 403 ) {
+        if (error.status > 399 && error.status < 500) {
           this.noAccess = true;
           console.log('No Access');
         }

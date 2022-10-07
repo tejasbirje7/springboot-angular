@@ -26,7 +26,7 @@ export class CreateEmployeeComponent implements OnInit {
     },
     error => {
       console.log(error);
-      if (error.status === 403) {
+      if (error.status > 399 && error.status < 500) {
         this.noAccess = true;
       }
     });
