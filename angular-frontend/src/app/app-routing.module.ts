@@ -8,6 +8,7 @@ import {RegisterComponent} from './register/register.component';
 import {LoginComponent} from './login/login.component';
 import {ProfileComponent} from './profile/profile.component';
 import {AuthGuard} from './_helpers/auth.guard';
+import {AopComponent} from './aop/aop.component';
 
 const routes: Routes = [
   {path: 'employees', canActivate: [AuthGuard], component: EmployeeListComponent},
@@ -17,7 +18,8 @@ const routes: Routes = [
   {path: 'employee-details/:id', canActivate: [AuthGuard], component: EmployeeDetailsComponent},
   {path: 'register', component: RegisterComponent},
   {path: 'login', component: LoginComponent},
-  {path: 'profile', canActivate: [AuthGuard], component: ProfileComponent}
+  {path: 'profile', canActivate: [AuthGuard], component: ProfileComponent},
+  {path: 'aop', canActivate: [AuthGuard], component: AopComponent}
 ];
 
 @NgModule({

@@ -1,15 +1,16 @@
 package com.crud.demo.controller;
 
+import com.crud.demo.aspect.LoggingAspect;
 import com.crud.demo.entity.Employee;
-import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RestController;
 
-@Controller
+import java.util.Map;
+
+@RestController
 public class DemoController {
-
-	// create a mapping for "/hello"
 	
 	@GetMapping("/hello")
 	public String sayHello(Model theModel) {
@@ -23,6 +24,11 @@ public class DemoController {
 	public Employee init() {
 		Employee bean = new Employee();
 		return bean;
+	}
+
+	@GetMapping("/aop/logs")
+	public Map<Long,String> returnAopLogs(){
+		return LoggingAspect.getAopMAP();
 	}
 
 

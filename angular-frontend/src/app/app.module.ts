@@ -12,6 +12,7 @@ import {authInterceptorProviders} from './_helpers/auth.interceptor';
 import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import {ProfileComponent} from './profile/profile.component';
+import { AopComponent } from './aop/aop.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import {ProfileComponent} from './profile/profile.component';
     UpdateEmployeeComponent,
     EmployeeDetailsComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    AopComponent
   ],
   imports: [
     BrowserModule,

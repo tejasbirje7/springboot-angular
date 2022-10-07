@@ -81,21 +81,21 @@
 			<artifactId>validation-api</artifactId>
 			<version>2.0.1.Final</version>
 		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-server</artifactId>
-			<version>9.4.48.v20220622</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-rewrite</artifactId>
-			<version>9.4.25.v20191220</version>
-		</dependency>
-		<dependency>
-			<groupId>org.eclipse.jetty</groupId>
-			<artifactId>jetty-webapp</artifactId>
-			<version>9.4.33.v20201020</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.eclipse.jetty</groupId>-->
+<!--			<artifactId>jetty-server</artifactId>-->
+<!--			<version>9.4.48.v20220622</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.eclipse.jetty</groupId>-->
+<!--			<artifactId>jetty-rewrite</artifactId>-->
+<!--			<version>9.4.25.v20191220</version>-->
+<!--		</dependency>-->
+<!--		<dependency>-->
+<!--			<groupId>org.eclipse.jetty</groupId>-->
+<!--			<artifactId>jetty-webapp</artifactId>-->
+<!--			<version>9.4.33.v20201020</version>-->
+<!--		</dependency>-->
 	</dependencies>
 
 	<build>
@@ -117,7 +117,7 @@
 							<outputDirectory>${basedir}/target/classes/static</outputDirectory >
 							<resources>
 								<resource>
-									<directory>/opt/springboot/ang-sprng/Angular-10-Spring-Boot-CRUD-Full-Stack-App/angular-frontend/dist/angular-frontend
+									<directory>/opt/springboot/employee/angular-frontend/dist/angular-frontend
 									</directory >
 								</resource>
 							</resources>

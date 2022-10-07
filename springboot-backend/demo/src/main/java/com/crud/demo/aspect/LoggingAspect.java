@@ -1,74 +1,104 @@
 package com.crud.demo.aspect;
 
 import com.crud.demo.entity.Employee;
+import com.crud.demo.service.EmployeeService;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.After;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.annotation.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
+
+import java.time.Clock;
+import java.time.Instant;
+import java.time.ZoneId;
+import java.util.HashMap;
+import java.util.Map;
 
 @Aspect
 @Component
 public class LoggingAspect {
 
     Authentication authentication;
+    @Autowired
+    private EmployeeService employeeService;
+    public static Map<Long,String> map = new HashMap<>();
 
-    @Pointcut("execution(* com.crud.demo.service.*.*(..))")
-    public void forServicePackage() {}
+    Clock defaultClock = Clock.systemDefaultZone();
+    ZoneId istZone = ZoneId.of("Asia/Kolkata");
 
+
+    /**
+     * Employee is searched / find by some or the other routes in controller
+     */
     @Pointcut("execution(* com.crud.demo.service.*.find*(..))")
     public void allFindMethods() {}
 
     @Pointcut("execution(* com.crud.demo.service.*.search*(..))")
     public void searchMethod() {}
 
-    @Pointcut("forServicePackage() && !(allFindMethods() || searchMethod())")
+    @Pointcut("allFindMethods() || searchMethod()")
     public void forServicePackageNoFindAndSearchMethods() {}
-
 
     @Before("forServicePackageNoFindAndSearchMethods()")
     public void operationsOnDatabase() {
-        System.out.println("===============> Modifications done on database");
+        String line = "AOP => Employee searched in database";
+        /*
+        map.put(Instant.now(defaultClock)
+                .atZone(istZone)
+                .toInstant().toEpochMilli(),line);*/
     }
 
-    @Before("execution(* findAllByOrderByLastNameAsc())")
-    public void employeeSearched(JoinPoint jointPoint) {
-        System.out.println("=====> Employee was searched");
-    }
-
-    @After("execution(* com.crud.demo.controller.*.showFormForAdd(..))")
+    /**
+     * New employee is saved in database
+     * @param jointPoint
+     */
+    @After("execution(* com.crud.demo.controller.EmployeeController.save*(..))")
     public void addingEmployee(JoinPoint jointPoint) {
-
-        addToMap(jointPoint,"Employee added ");
+        addToMap(jointPoint,"AOP => Added employee in database");
     }
 
-    @Before("execution(* com.crud.demo.controller.*.save*(..))")
+    /**
+     * New employee is updated in database
+     * @param jointPoint
+     */
+    @Before("execution(* com.crud.demo.controller.EmployeeController.update*(..))")
     public void updatingEmployee(JoinPoint jointPoint) {
-
-        addToMap(jointPoint, "Employee updated ");
+        addToMap(jointPoint,"AOP => Updated employee in database");
     }
 
-    @After("execution(* com.crud.demo.controller.*.delete*(..))")
-    public void employeeDeleted(JoinPoint jointPoint) {
-        System.out.println("========> Delete");
-        addToMap(jointPoint,"Employee deleted ");
+    /**
+     * New employee is deleted in database
+     * @param jointPoint
+     */
+    @Before("execution(* com.crud.demo.controller.EmployeeController.delete*(..))")
+    public void deletingEmployee(JoinPoint jointPoint) {
+        addToMap(jointPoint,"AOP => Deleted employee in database");
     }
 
     private void addToMap(JoinPoint jointPoint, String log) {
         this.authentication = SecurityContextHolder.getContext().getAuthentication();
-        String currentPrincipalName = authentication.getName();
-
         Object[] args = jointPoint.getArgs();
+        String empName ="";
         for(Object tempArg : args) {
-            System.out.println("=====> Temp Arg : " + tempArg);
-            if (tempArg instanceof Employee) {
-                Employee emp = (Employee) tempArg;
-                System.out.println("=====> Employee : "+ emp.getFirstName());
+            Employee emp;
+            if (tempArg instanceof Integer) {
+                emp = employeeService.findById((int)tempArg);
+                empName = emp.getFirstName();
+            }
+            else if (tempArg instanceof Employee) {
+                emp = (Employee) tempArg;
+                empName =  emp.getFirstName();
             }
         }
+        String line = log + " " + empName + " by " + authentication.getName();
+        map.put(Instant.now(defaultClock)
+                .atZone(istZone)
+                .toInstant().toEpochMilli(),line);
+    }
+
+    public static Map<Long,String> getAopMAP() {
+        return map;
     }
 
 }

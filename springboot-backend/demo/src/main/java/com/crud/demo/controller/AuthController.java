@@ -4,7 +4,6 @@ package com.crud.demo.controller;
 import com.crud.demo.dao.RoleRepository;
 import com.crud.demo.dao.UserRepository;
 import com.crud.demo.entity.*;
-import com.crud.demo.security.AuthTokenFilter;
 import com.crud.demo.security.JwtUtils;
 import com.crud.demo.service.UserService;
 import org.slf4j.Logger;

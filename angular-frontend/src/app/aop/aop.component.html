@@ -1,0 +1,17 @@
+<br>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th scope="col">#</th>
+    <th scope="col">Timestamp</th>
+    <th scope="col">Operation</th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let log of aopLogMap | keyvalue ; let i = index">
+    <th scope="row">{{ i + 1 }}</th>
+    <td>{{ log.key | date : 'dd/MM/yyyy hh:mm a' }}</td>
+    <td>{{ log.value }}</td>
+  </tr>
+  </tbody>
+</table>
