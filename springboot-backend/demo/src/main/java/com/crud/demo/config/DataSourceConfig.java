@@ -15,13 +15,7 @@ import javax.sql.DataSource;
 @Configuration
 @EnableAspectJAutoProxy
 @EnableJpaRepositories(basePackages={"${spring.data.jpa.repository.packages}"})
-public class DemoDataSourceConfig {
-
-	@Bean
-	@ConfigurationProperties(prefix="app.datasource")
-	public DataSource appDataSource() {
-		return DataSourceBuilder.create().build();
-	}
+public class DataSourceConfig {
 
 	@Bean
 	@ConfigurationProperties(prefix="spring.data.jpa.entity")
@@ -37,4 +31,12 @@ public class DemoDataSourceConfig {
 	public DataSource securityDataSource() {
 		return DataSourceBuilder.create().build();
 	}
+
+
+	/*
+	@Bean
+	@ConfigurationProperties(prefix="app.datasource")
+	public DataSource appDataSource() {
+		return DataSourceBuilder.create().build();
+	}*/
 }

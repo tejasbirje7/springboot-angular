@@ -3,9 +3,8 @@ package com.crud.demo.config;
 import com.crud.demo.security.AccessDenied;
 import com.crud.demo.security.AuthEntryPointJwt;
 import com.crud.demo.security.AuthTokenFilter;
-import com.crud.demo.service.UserServiceImpl;
+import com.crud.demo.service.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.EnableAspectJAutoProxy;
@@ -21,7 +20,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
-import javax.sql.DataSource;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
@@ -30,21 +28,16 @@ import java.util.stream.Stream;
 @EnableWebSecurity
 //@EnableGlobalMethodSecurity - Based on role user can access API
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
-public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    UserServiceImpl userService;
+    UserDetailsServiceImpl userDetailsService;
 
     @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
 
     @Autowired
     private AccessDenied accessDeniedHandler;
-
-    // add a reference to our security data source
-    @Autowired
-    @Qualifier("securityDataSource")
-    private DataSource securityDataSource;
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
@@ -62,6 +55,13 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
         return new BCryptPasswordEncoder();
     }
 
+
+    /*
+    // add a reference to our security data source. Required when we do jdbc authentication
+    @Autowired
+    @Qualifier("securityDataSource")
+    private DataSource securityDataSource;*/
+
     // JDBC AUTHENTICATION
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
@@ -72,7 +72,7 @@ public class DemoSecurityConfig extends WebSecurityConfigurerAdapter {
         // auth.jdbcAuthentication().dataSource(securityDataSource);
 
         // Custom implementation for user authentication
-        auth.userDetailsService(userService).passwordEncoder(passwordEncoder());
+        auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
     }
 
     // AUTHORIZATION

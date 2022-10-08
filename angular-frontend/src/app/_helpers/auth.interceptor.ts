@@ -23,7 +23,7 @@ export class AuthInterceptor implements HttpInterceptor {
       // for Spring Boot back-end
       authReq = req.clone({ headers: req.headers.set(TOKEN_HEADER_KEY, 'Bearer ' + token) });
     } else {
-      this.router.navigate(['login']);
+      //this.router.navigate(['login']);
     }
     return next.handle(authReq);
   }
