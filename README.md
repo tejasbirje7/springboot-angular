@@ -1,4 +1,6 @@
 # Angular Springboot CRUD demo
+  
+## Stack
 Frontend - Angular  
 Middlewar - SpringBoot & Spring Security  
 Backend - MySQL with JPA  
