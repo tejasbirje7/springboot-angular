@@ -4,7 +4,7 @@
 Frontend - Angular  
 Middlewar - SpringBoot & Spring Security  
 Backend - MySQL with JPA  
-Logging - Aspect  
+Logging - AspectJ ( Aspect Oriented Programming )  
 
 ## Architecture ( Bird eye view )
 ![alt text](https://github.com/tejasbirje7/employee_crud/blob/main/architecture.jpg?raw=true)
