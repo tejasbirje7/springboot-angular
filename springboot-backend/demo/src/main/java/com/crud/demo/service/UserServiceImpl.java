@@ -17,18 +17,20 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
-    @Autowired
+
     UserRepository userRepository;
-    @Autowired
     AuthenticationManager authenticationManager;
-    @Autowired
     JwtUtils jwtUtils;
-
-    @Autowired
     RoleRepository roleRepository;
-
-    @Autowired
     PasswordEncoder encoder;
+    @Autowired
+    public UserServiceImpl(UserRepository userRepository, AuthenticationManager authenticationManager, JwtUtils jwtUtils, RoleRepository roleRepository, PasswordEncoder encoder) {
+        this.userRepository = userRepository;
+        this.authenticationManager = authenticationManager;
+        this.jwtUtils = jwtUtils;
+        this.roleRepository = roleRepository;
+        this.encoder = encoder;
+    }
 
     @Override
     public JwtResponse authenticateUser(LoginRequest loginRequest) {

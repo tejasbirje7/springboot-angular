@@ -19,14 +19,16 @@ import java.util.Map;
 @Component
 public class LoggingAspect {
 
-    Authentication authentication;
-    @Autowired
-    private EmployeeService employeeService;
+    private final EmployeeService employeeService;
     public static Map<Long,String> map = new HashMap<>();
 
     Clock defaultClock = Clock.systemDefaultZone();
     ZoneId istZone = ZoneId.of("Asia/Kolkata");
 
+    @Autowired
+    public LoggingAspect(EmployeeService employeeService) {
+        this.employeeService = employeeService;
+    }
 
     /**
      * Employee is searched / find by some or the other routes in controller
@@ -77,9 +79,9 @@ public class LoggingAspect {
     }
 
     private void addToMap(JoinPoint jointPoint, String log) {
-        this.authentication = SecurityContextHolder.getContext().getAuthentication();
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         Object[] args = jointPoint.getArgs();
-        String empName ="";
+        String empName = "";
         for(Object tempArg : args) {
             Employee emp;
             if (tempArg instanceof Integer) {

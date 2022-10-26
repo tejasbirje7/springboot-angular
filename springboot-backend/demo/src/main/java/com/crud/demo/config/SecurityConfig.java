@@ -30,20 +30,21 @@ import java.util.stream.Stream;
 @EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
-    @Autowired
     UserDetailsServiceImpl userDetailsService;
-
-    @Autowired
     private AuthEntryPointJwt unauthorizedHandler;
+    private AccessDenied accessDeniedHandler;
 
     @Autowired
-    private AccessDenied accessDeniedHandler;
+    public SecurityConfig(UserDetailsServiceImpl userDetailsService, AuthEntryPointJwt unauthorizedHandler, AccessDenied accessDeniedHandler) {
+        this.userDetailsService = userDetailsService;
+        this.unauthorizedHandler = unauthorizedHandler;
+        this.accessDeniedHandler = accessDeniedHandler;
+    }
 
     @Bean
     public AuthTokenFilter authenticationJwtTokenFilter() {
         return new AuthTokenFilter();
     }
-
     @Bean
     @Override
     public AuthenticationManager authenticationManagerBean() throws Exception {

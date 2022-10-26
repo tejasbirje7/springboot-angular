@@ -22,8 +22,7 @@ public class DemoController {
 	// It is always invoked before defined paths in controller are requested
 	@ModelAttribute("myRequestObject")
 	public Employee init() {
-		Employee bean = new Employee();
-		return bean;
+		return new Employee();
 	}
 
 	@GetMapping("/aop/logs")
